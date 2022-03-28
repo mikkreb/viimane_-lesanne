@@ -58,8 +58,15 @@ class Controller:
                 self.model.get_random_multiply_problem()
             if self.gamemode == 4:
                 self.model.get_random_division_problem()
-            self.view.labelResult.configure(text='Valesti ' + str(self.model.failcounter) + ' küsimust')
+            self.view.labelResult.configure(text='Valesti ' + str(self.model.failcounter) + ' küsimus(t)')
             self.view.labelQuestion.configure(text=self.model.mathproblem)
+            self.view.labelCorrect.configure(text='Õigesti vastatud ' + str(self.model.correctcounter) + ' küsimus(t)')
         else:
             self.view.labelResult.configure(text='Sisestage ainult täisarve!')
         self.view.wordInput.delete(0,'end')
+        self.game_over()
+    
+    def game_over(self):
+        if self.model.failcounter == 5:
+            self.view.labelQuestion.configure(text='Mäng läbi!')
+            self.view.button.configure(state=DISABLED)

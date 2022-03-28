@@ -13,7 +13,7 @@ class View(Tk):
         self.defaultFontBold = tkFont.Font(family='Verdana', size=10, weight='bold')
         
         # Main window
-        self.geometry('640x480')
+        self.geometry('640x320')
         self.resizable(False, False)
         self.title('Vinge matemaatika mäng!')
         
@@ -25,7 +25,7 @@ class View(Tk):
         # Widgets
         self.create_newGameButtons()
         self.wordInput, self.button = self.create_userinput()
-        self.labelQuestion, self.labelResult = self.create_infoLabels()
+        self.labelQuestion, self.labelResult, self.labelCorrect = self.create_infoLabels()
         
     def main(self):
         self.mainloop()
@@ -33,19 +33,19 @@ class View(Tk):
     # Frames
     def create_top_frame(self):
         'Creates top frame'
-        frame = Frame(self, bg='blue')
+        frame = Frame(self)
         frame.pack(expand=True, fill='both')
         return frame
     
     def create_middle_frame(self):
         'Creates middle frame'
-        frame = Frame(self, bg='grey')
+        frame = Frame(self)
         frame.pack(expand=True, fill='both')
         return frame
     
     def create_bottom_frame(self):
         'Creates bottom frame'
-        frame = Frame(self, bg='yellow')
+        frame = Frame(self)
         frame.pack(expand=True, fill='both')
         return frame
     
@@ -86,7 +86,6 @@ class View(Tk):
                           command=lambda:self.controller.btn_divide_click())
         division.grid(row=0, column=4, padx=5, pady=5)
         
-        return addition, subtraction, multiply, division
 
     def create_infoLabels(self):
         'Displays the math problem and feedback about user input'
@@ -96,4 +95,7 @@ class View(Tk):
         labelResult = Label(self.middle_frame, text='', font=self.smallerBigFontStyle)
         labelResult.pack()
         
-        return labelQuestion, labelResult
+        labelCorrect = Label(self.middle_frame, text='', font=self.smallerBigFontStyle)
+        labelCorrect.pack()
+        
+        return labelQuestion, labelResult, labelCorrect

@@ -6,13 +6,9 @@ from random import randint
 class Model:
     def __init__(self):
         self.mathproblem = '' # The math problem shown on screen set by set_xxxxx_problem() functions
-        self.user_answer = None # Users answer to the math problem
         self.failcounter = 0 # How many wrong answers were given by the user
-        self.answer = '' # Correct answer set by set_xxxxx_problem() functions
-        
-        # These two lines make it possible to run on GNU/Linux distributions
-        self.myfolder = pathlib.Path(__file__).parent.resolve() # Where the project is located
-        self.dst = os.path.join(self.myfolder, 'scores.txt') # Save path for storing scores
+        self.answer = 0 # Correct answer set by set_xxxxx_problem() functions
+        self.correctcounter = 0
         
     # https://stackoverflow.com/questions/46822789/python-generating-random-even-numbers-using-list-comprehension
     def even_number_generator(self, lim):
@@ -29,7 +25,7 @@ class Model:
                 if a % b == 0:
                     problem = str(a) + ' / ' + str(b)
                     answer = a / b
-                    self.answer = str(answer)
+                    self.answer = answer
                     self.mathproblem = problem
                     break
             except ZeroDivisionError:
@@ -40,7 +36,7 @@ class Model:
         b = randint(0,100)
         problem = str(a) + ' * ' + str(b)
         answer = a * b
-        self.answer = str(answer)
+        self.answer = answer
         self.mathproblem = problem
     
     def get_random_addition_problem(self):
@@ -48,7 +44,7 @@ class Model:
         b = randint(0,100)
         problem = str(a) + ' + ' + str(b)
         answer = a + b
-        self.answer = str(answer)
+        self.answer = answer
         self.mathproblem = problem
     
     def get_random_subtraction_problem(self):
@@ -62,15 +58,17 @@ class Model:
         else:
             problem = str(b) + ' - ' + str(a)
             answer = b - a
-            self.answer = str(answer)
+            self.answer = answer
             self.mathproblem = problem
         
     def new_game(self):
         self.failcounter = 0
+        self.correctcounter = 0
         
     def compare_answers(self, value):
         'Returns True if user answer is correct'
         if int(self.answer) == int(value):
+            self.correctcounter += 1
             return True
         else:
             return False
