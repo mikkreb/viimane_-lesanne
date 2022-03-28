@@ -5,11 +5,10 @@ from random import randint
 
 class Model:
     def __init__(self):
-        self.mathproblem = "" # The math problem shown on screen set by set_xxxxx_problem() functions
+        self.mathproblem = '' # The math problem shown on screen set by set_xxxxx_problem() functions
         self.user_answer = None # Users answer to the math problem
         self.failcounter = 0 # How many wrong answers were given by the user
-        self.correctcounter = 0 # How many correct answers were given by the user
-        self.answer = 0 # Correct answer set by set_xxxxx_problem() functions
+        self.answer = '' # Correct answer set by set_xxxxx_problem() functions
         
         # These two lines make it possible to run on GNU/Linux distributions
         self.myfolder = pathlib.Path(__file__).parent.resolve() # Where the project is located
@@ -30,8 +29,9 @@ class Model:
                 if a % b == 0:
                     problem = str(a) + ' / ' + str(b)
                     answer = a / b
-                    self.answer = answer
+                    self.answer = str(answer)
                     self.mathproblem = problem
+                    break
             except ZeroDivisionError:
                 continue
     
@@ -40,7 +40,7 @@ class Model:
         b = randint(0,100)
         problem = str(a) + ' * ' + str(b)
         answer = a * b
-        self.answer = answer
+        self.answer = str(answer)
         self.mathproblem = problem
     
     def get_random_addition_problem(self):
@@ -48,7 +48,7 @@ class Model:
         b = randint(0,100)
         problem = str(a) + ' + ' + str(b)
         answer = a + b
-        self.answer = answer
+        self.answer = str(answer)
         self.mathproblem = problem
     
     def get_random_subtraction_problem(self):
@@ -57,13 +57,32 @@ class Model:
         if a >= b:
             problem = str(a) + ' - ' + str(b)
             answer = a - b
-            self.answer = answer
+            self.answer = str(answer)
             self.mathproblem = problem
         else:
             problem = str(b) + ' - ' + str(a)
-            answer = a - b
-            self.answer = answer
+            answer = b - a
+            self.answer = str(answer)
             self.mathproblem = problem
         
-    def new_multiply_game(self):
-        self.get_random_multiply_problem()
+    def new_game(self):
+        self.failcounter = 0
+        
+    def compare_answers(self, value):
+        'Returns True if user answer is correct'
+        if int(self.answer) == int(value):
+            return True
+        else:
+            return False
+        
+    def get_userinput(self, value):
+        if self.compare_answers(value) == False:
+            self.failcounter += 1
+            #print(self.failcounter) test
+    
+    def isNumber(self, value):
+        try:
+            int(value)
+            return True
+        except:
+            return False

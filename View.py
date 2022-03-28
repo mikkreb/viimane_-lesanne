@@ -24,8 +24,8 @@ class View(Tk):
         
         # Widgets
         self.create_newGameButtons()
-        self.wordInput = self.create_userinput()
-        self.create_infoLabels()
+        self.wordInput, self.button = self.create_userinput()
+        self.labelQuestion, self.labelResult = self.create_infoLabels()
         
     def main(self):
         self.mainloop()
@@ -58,10 +58,11 @@ class View(Tk):
         wordInput = Entry(self.bottom_frame, textvariable=self.userinput, justify='center', font=self.defaultFontStyle)
         wordInput.grid(row=0, column=1, padx=5, pady=5)
         
-        button = Button(self.bottom_frame, text='Vasta', font=self.defaultFontStyle, state=DISABLED)
+        button = Button(self.bottom_frame, text='Vasta', font=self.defaultFontStyle, state=DISABLED,
+                        command=lambda:self.controller.btn_answer_click())
         button.grid(row=0, column=2, padx=5, pady=5)
     
-        return wordInput
+        return wordInput, button
     
     # Buttons for starting a new game with a specified gamemode
     def create_newGameButtons(self):
@@ -69,16 +70,20 @@ class View(Tk):
         info = Label(self.top_frame, text='Valige mida soovite mängida:', font=self.defaultFontStyle)
         info.grid(row=0, column=0, padx=5, pady=5)
         
-        addition = Button(self.top_frame, text='Liitmine', font=self.defaultFontStyle)
+        addition = Button(self.top_frame, text='Liitmine', font=self.defaultFontStyle,
+                          command=lambda:self.controller.btn_addition_click())
         addition.grid(row=0, column=1, padx=5,pady=5)
         
-        subtraction = Button(self.top_frame, text='Lahutamine', font=self.defaultFontStyle)
+        subtraction = Button(self.top_frame, text='Lahutamine', font=self.defaultFontStyle,
+                             command=lambda:self.controller.btn_subtract_click())
         subtraction.grid(row=0, column=2, padx=5, pady=5)
         
-        multiply = Button(self.top_frame, text='Korrutamine', font=self.defaultFontStyle)
+        multiply = Button(self.top_frame, text='Korrutamine', font=self.defaultFontStyle
+                          ,command=lambda:self.controller.btn_multiply_click())
         multiply.grid(row=0, column=3, padx=5, pady=5)
         
-        division = Button(self.top_frame, text='Jagamine', font=self.defaultFontStyle)
+        division = Button(self.top_frame, text='Jagamine', font=self.defaultFontStyle,
+                          command=lambda:self.controller.btn_divide_click())
         division.grid(row=0, column=4, padx=5, pady=5)
         
         return addition, subtraction, multiply, division
@@ -90,3 +95,5 @@ class View(Tk):
         
         labelResult = Label(self.middle_frame, text='', font=self.smallerBigFontStyle)
         labelResult.pack()
+        
+        return labelQuestion, labelResult
