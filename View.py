@@ -32,34 +32,40 @@ class View(Tk):
         
     # Frames
     def create_top_frame(self):
+        'Creates top frame'
         frame = Frame(self, bg='blue')
         frame.pack(expand=True, fill='both')
         return frame
     
     def create_middle_frame(self):
+        'Creates middle frame'
         frame = Frame(self, bg='grey')
         frame.pack(expand=True, fill='both')
         return frame
     
     def create_bottom_frame(self):
+        'Creates bottom frame'
         frame = Frame(self, bg='yellow')
         frame.pack(expand=True, fill='both')
         return frame
     
     # Widgets
     def create_userinput(self):
+        'Creates a label, entry and a button on the bottom frame for user input'
         labelInfo = Label(self.bottom_frame, text = 'Sisestage vastus:', font=self.defaultFontBold)
         labelInfo.grid(row=0, column=0, pady=5, padx=5)
         
         wordInput = Entry(self.bottom_frame, textvariable=self.userinput, justify='center', font=self.defaultFontStyle)
         wordInput.grid(row=0, column=1, padx=5, pady=5)
         
-        button = Button(self.bottom_frame, text='Vasta', font=self.defaultFontStyle)
+        button = Button(self.bottom_frame, text='Vasta', font=self.defaultFontStyle, state=DISABLED)
         button.grid(row=0, column=2, padx=5, pady=5)
     
         return wordInput
     
+    # Buttons for starting a new game with a specified gamemode
     def create_newGameButtons(self):
+        'Creates buttons for starting new game on the top frame'
         info = Label(self.top_frame, text='Valige mida soovite mängida:', font=self.defaultFontStyle)
         info.grid(row=0, column=0, padx=5, pady=5)
         
@@ -78,8 +84,9 @@ class View(Tk):
         return addition, subtraction, multiply, division
 
     def create_infoLabels(self):
-        labelQuestion = Label(self.middle_frame, text='Sisestage vastus:', font=self.bigFontStyle)
+        'Displays the math problem and feedback about user input'
+        labelQuestion = Label(self.middle_frame, text='Mängu pole veel alustatud!', font=self.bigFontStyle)
         labelQuestion.pack()
         
-        labelResult = Label(self.middle_frame, text='Correct!', font=self.smallerBigFontStyle)
+        labelResult = Label(self.middle_frame, text='', font=self.smallerBigFontStyle)
         labelResult.pack()

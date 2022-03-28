@@ -3,6 +3,7 @@ from Model import *
 
 class Controller:
     def __init__(self):
+        self.model = Model()
         self.view = View(self)
         
     def main(self):

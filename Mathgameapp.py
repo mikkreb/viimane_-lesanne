@@ -1,4 +1,3 @@
-from msilib.schema import Control
 from Controller import *
 
 class Mathgameapp:
@@ -7,4 +6,4 @@ class Mathgameapp:
         app.main()
         
 if __name__ == '__main__':
-    db = Mathgameapp()
+    mathgame = Mathgameapp()
